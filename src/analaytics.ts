@@ -1,0 +1,2 @@
+// GOOGLE DID THIS JUST TO LET BITCH NIGGA KNOW
+console.log("Analytics is running... ITS ME GOOGLE YOU BIG BITCH");
