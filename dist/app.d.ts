@@ -13,16 +13,40 @@ declare abstract class Sets extends Exercise {
     set markSetComplete(setNumber: number);
 }
 declare class RepBasedStrengthExercise extends Sets {
-    protected reps: number | string;
+    reps: number | string;
     weight: number;
     constructor(id: string, name: string, sets: number, reps: number | string, weight: number);
     describe(): void;
     get getReps(): string | number;
 }
-interface Greetable {
+declare class TimeBasedStrengthExercise extends Sets {
+    duration: number;
+    weight: number;
+    constructor(id: string, name: string, sets: number, duration: number, weight: number);
+    describe(): void;
+}
+type ExcerciseTypes = RepBasedStrengthExercise | TimeBasedStrengthExercise;
+interface Named {
+    readonly name: string;
+}
+interface ExerciseList {
+    excerciseList: ExcerciseTypes[];
+}
+interface Greetable extends Named, ExerciseList {
+    mssg(phrase: string): void;
+}
+declare class Workouts implements Greetable {
     name: string;
-    excerciseList: Exercise[];
+    excerciseList: ExcerciseTypes[];
+    constructor(name: string, excerciseList: ExcerciseTypes[]);
     mssg(phrase: string): void;
 }
 declare let allExercises: Greetable;
+declare class AllWorkouts implements ExerciseList {
+    excerciseList: ExcerciseTypes[];
+    static workouts: ExcerciseTypes[];
+    private constructor();
+    static getList(exerciseList: ExcerciseTypes[]): AllWorkouts;
+}
+declare const everyWorkout: AllWorkouts;
 //# sourceMappingURL=app.d.ts.map

@@ -31,7 +31,7 @@ class RepBasedStrengthExercise extends Sets {
     id: string,
     name: string,
     sets: number,
-    protected reps: number | string,
+    public reps: number | string,
     public weight: number
   ) {
     super(id, name, sets);
@@ -51,23 +51,67 @@ class RepBasedStrengthExercise extends Sets {
   }
 }
 
-interface Greetable {
-  name: string;
-  excerciseList: Exercise[];
+class TimeBasedStrengthExercise extends Sets {
+  constructor(
+    id: string,
+    name: string,
+    sets: number,
+    public duration: number,
+    public weight: number
+  ) {
+    super(id, name, sets);
+  }
 
+  describe() {
+    console.log(`\nExercise ${this.id}: ${this.name} is time based`);
+    console.log("Weight is", this.weight);
+    console.log("Duration is", this.duration);
+  }
+}
+
+type ExcerciseTypes = RepBasedStrengthExercise | TimeBasedStrengthExercise;
+
+interface Named {
+  readonly name: string;
+}
+
+interface ExerciseList {
+  excerciseList: ExcerciseTypes[];
+}
+
+interface Greetable extends Named, ExerciseList {
   mssg(phrase: string): void;
 }
 
-let allExercises: Greetable;
+class Workouts implements Greetable {
+  constructor(public name: string, public excerciseList: ExcerciseTypes[]) {}
 
-allExercises = {
-  name: "Workout Template 1",
-  excerciseList: [
-    new RepBasedStrengthExercise("A1", "Incline Press", 4, 8, 100),
-  ],
   mssg(phrase: string) {
     console.log(phrase + " " + this.name);
-  },
-};
+  }
+}
+let allExercises: Greetable;
+
+allExercises = new Workouts("Workout Template 1", [
+  new RepBasedStrengthExercise("A1", "Incline Press", 4, 8, 100),
+]);
 
 allExercises.mssg("This is");
+
+class AllWorkouts implements ExerciseList {
+  static workouts: ExcerciseTypes[] = [];
+
+  private constructor(public excerciseList: ExcerciseTypes[]) {
+    AllWorkouts.workouts = excerciseList;
+  }
+
+  static getList(exerciseList: ExcerciseTypes[]) {
+    return new AllWorkouts([...AllWorkouts.workouts, ...exerciseList]);
+  }
+}
+
+const everyWorkout = AllWorkouts.getList([
+  new RepBasedStrengthExercise("A1", "Incline Press", 4, 8, 100),
+]);
+
+console.log(everyWorkout);

@@ -43,15 +43,49 @@ class RepBasedStrengthExercise extends Sets {
         return this.reps;
     }
 }
-let allExercises;
-allExercises = {
-    name: "Workout Template 1",
-    excerciseList: [
-        new RepBasedStrengthExercise("A1", "Incline Press", 4, 8, 100),
-    ],
+class TimeBasedStrengthExercise extends Sets {
+    duration;
+    weight;
+    constructor(id, name, sets, duration, weight) {
+        super(id, name, sets);
+        this.duration = duration;
+        this.weight = weight;
+    }
+    describe() {
+        console.log(`\nExercise ${this.id}: ${this.name} is time based`);
+        console.log("Weight is", this.weight);
+        console.log("Duration is", this.duration);
+    }
+}
+class Workouts {
+    name;
+    excerciseList;
+    constructor(name, excerciseList) {
+        this.name = name;
+        this.excerciseList = excerciseList;
+    }
     mssg(phrase) {
         console.log(phrase + " " + this.name);
-    },
-};
+    }
+}
+let allExercises;
+allExercises = new Workouts("Workout Template 1", [
+    new RepBasedStrengthExercise("A1", "Incline Press", 4, 8, 100),
+]);
 allExercises.mssg("This is");
+class AllWorkouts {
+    excerciseList;
+    static workouts = [];
+    constructor(excerciseList) {
+        this.excerciseList = excerciseList;
+        AllWorkouts.workouts = excerciseList;
+    }
+    static getList(exerciseList) {
+        return new AllWorkouts([...AllWorkouts.workouts, ...exerciseList]);
+    }
+}
+const everyWorkout = AllWorkouts.getList([
+    new RepBasedStrengthExercise("A1", "Incline Press", 4, 8, 100),
+]);
+console.log(everyWorkout);
 //# sourceMappingURL=app.js.map

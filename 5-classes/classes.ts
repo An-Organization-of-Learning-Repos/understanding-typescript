@@ -154,3 +154,9 @@ class Singleton {
 
 const singleton = Singleton.getInstance();
 console.log(singleton.name);
+
+// private constructors and singletons are useful for things like logging
+// where you only want one instance of the logger
+// and you dont want to have to pass it around to every file
+// you can just import it and use it
+// and you can use it in other classes
