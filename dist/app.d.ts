@@ -1,35 +1,28 @@
-declare class Workout {
+declare abstract class Exercise {
     protected readonly id: string;
     name: string;
+    static exercises: Exercise[];
     constructor(id: string, name: string);
+    abstract describe(this: Exercise): void;
 }
-declare class Sets extends Workout {
+declare abstract class Sets extends Exercise {
     sets: number;
     protected completedSets: boolean[];
     constructor(id: string, name: string, sets: number);
-    describe(): void;
+    abstract describe(this: Sets): void;
     set markSetComplete(setNumber: number);
 }
-declare class RepBasedStrengthWorkout extends Sets {
-    reps: number | string;
+declare class RepBasedStrengthExercise extends Sets {
+    protected reps: number | string;
     weight: number;
     constructor(id: string, name: string, sets: number, reps: number | string, weight: number);
     describe(): void;
     get getReps(): string | number;
 }
-declare const repBasedStrengthWorkout: RepBasedStrengthWorkout;
-declare class TimeBasedStrengthWorkout extends Sets {
-    duration: number;
-    weight: number;
-    constructor(id: string, name: string, sets: number, duration: number, weight: number);
-    describe(): void;
+interface Greetable {
+    name: string;
+    excerciseList: Exercise[];
+    mssg(phrase: string): void;
 }
-declare const timeBasedStrengthWorkout: TimeBasedStrengthWorkout;
-declare class CardioWorkout extends Workout {
-    distance: number;
-    duration: number;
-    constructor(id: string, name: string, distance: number, duration: number);
-    describe(): void;
-}
-declare const cardioWorkout: CardioWorkout;
+declare let allExercises: Greetable;
 //# sourceMappingURL=app.d.ts.map
