@@ -31,12 +31,12 @@ const mergedObj = merge(
 console.log("ob jay", mergedObj);
 console.log(mergedObj.name);
 
-// function merge2<T, U>(objA: T, objB: U) {
-//   return Object.assign(objA, objB); // we need to extend object to tell TS that we are passing in an object, not this way in the video tho
-// }
+function merge2<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB); // we need to extend object to tell TS that we are passing in an object, not this way in the video tho
+}
 
-// const mergedObj2 = merge2({ name: "Page" }, { age: 30 });
-// console.log("ob jay 2", mergedObj2);
+const mergedObj2 = merge2({ name: "Page" }, { age: 30 });
+console.log("ob jay 2", mergedObj2);
 
 interface Lengthy {
   length: number;
