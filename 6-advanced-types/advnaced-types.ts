@@ -23,6 +23,7 @@ type Numeric = number | boolean;
 
 type Universal = Combinable & Numeric;
 
+// need to use function convention overload bc some rando said so
 function add(a: number, b: number): number; // function overload
 function add(a: string, b: string): string; // function overload
 function add(a: string, b: number): string; // function overload
